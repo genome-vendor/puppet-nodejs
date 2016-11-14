@@ -6,7 +6,10 @@ class nodejs::repo::nodesource::apt {
   $pin        = $nodejs::repo::nodesource::pin
   $url_suffix = $nodejs::repo::nodesource::url_suffix
 
-  ensure_packages(['apt-transport-https', 'ca-certificates'])
+  package { ['apt-transport-https', 'ca-certificates']:
+            ensure => 'present',
+            tag => 'exempt-from-apt-collector',
+  }
 
   include ::apt
 
